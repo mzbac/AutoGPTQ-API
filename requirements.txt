@@ -1,0 +1,7 @@
+requests
+tqdm
+git+https://github.com/huggingface/transformers
+chardet
+cchardet
+
+websockets
