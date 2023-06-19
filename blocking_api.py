@@ -48,12 +48,12 @@ class GenerateHandler:
 
         text = body['prompt']
         min_length = body.get('min_length', 0)
-        max_length = body.get('max_length', 1000)
+        max_new_tokens= body.get('max_new_tokens', 200)
         top_p = body.get('top_p', 0.95)
         top_k = body.get('top_k', 40)
         typical_p = body.get('typical_p', 1)
         do_sample = body.get('do_sample', True)
-        temperature = body.get('temperature', 0.6)
+        temperature = body.get('temperature', 0.1)
         no_repeat_ngram_size = body.get('no_repeat_ngram_size', 0)
         num_beams = body.get('num_beams', 1)
         stopping_strings = body.get('stopping_strings', ['Human:', ])
@@ -73,7 +73,7 @@ class GenerateHandler:
             generated_ids = model.generate(
                 input_ids =input_ids,
                 min_length=min_length,
-                max_length=max_length,
+                max_new_tokens=max_new_tokens,
                 top_p=top_p,
                 top_k=top_k,
                 typical_p=typical_p,
@@ -85,7 +85,7 @@ class GenerateHandler:
             )
 
         generated_text = tokenizer.decode(
-            [el.item() for el in generated_ids[0]], skip_special_tokens=True)
+            [el.item() for el in generated_ids[0][starting_idx:]], skip_special_tokens=True)
 
         response = json.dumps(
             {'results': [{'text': generated_text.strip()}]})

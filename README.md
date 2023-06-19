@@ -36,6 +36,12 @@ openssl req -x509 -out cert.pem -keyout key.pem \
   -subj '/CN=localhost' -extensions EXT -config <( \
    printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
 ```
+
+## Download models
+```
+python download.py TheBloke/WizardCoder-15B-1.0-GPTQ
+```
+
 ## Usage
 
 1. Blocking api, update the model name and model weight path in blocking_api.py and run.
